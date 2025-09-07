@@ -27,4 +27,4 @@ The purpose is to demonstrate cross-browser testing (Chrome, Firefox, Edge) and 
 1. Clone this repository:
    ```bash
    git clone https://github.com/berdevel/selenium-automation-project.git
-   cd selenium-orangehrm
+   cd selenium-automation-project
