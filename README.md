@@ -1,26 +1,33 @@
-# Selenium + Pytest Demo Project - OrangeHRM
+# Selenium + Pytest Automation Project - OrangeHRM
 
-This project is a **QA Automation practice with Selenium and Pytest** using the [OrangeHRM Demo](https://opensource-demo.orangehrmlive.com/) application.  
-The purpose is to demonstrate cross-browser testing (Chrome, Firefox, Edge) and login functionality validation.
+This project is a **QA Automation practice using Selenium WebDriver with Python and Pytest**.  
+The tests interact with the [OrangeHRM Demo](https://opensource-demo.orangehrmlive.com) application to validate login functionality and dashboard elements.
 
 ---
 
 ## 🚀 Technologies
 - Python 3.x
-- Pytest
 - Selenium WebDriver
-- Browsers: Chrome, Firefox, Edge
+- Pytest
 
 ---
 
-## 📋 Test Case Implemented
-- Open the OrangeHRM login page.
-- Enter valid credentials (`Admin / admin123`).
-- Click the login button.
-- Verify that the user is redirected to the Dashboard page.
-- Validate page title and URL.
+## 📋 Test Scenarios Implemented
+- ✅ Login
+  - Valid login with correct credentials
+  - Invalid login with incorrect credentials
+  - Validation of error messages
+- ✅ Dashboard
+  - Verify correct navigation after login
+  - Validate dashboard title and menu options
+- ✅ Search / Directory
+  - Search for existing employee
+  - Search for non-existing employee
+- ✅ Logout
+  - Validate that logout redirects to the login page
 
 ---
+
 
 ## ⚙️ Installation and Usage
 
