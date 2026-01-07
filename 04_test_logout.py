@@ -39,25 +39,25 @@ def driver(request):
 def test_logout_orangehrm(driver, request):
     wait = WebDriverWait(driver, 10)
 
-    # 1. Hacer clic en el nombre de usuario (Esquina superior derecha)
-    # Este elemento despliega el menú oculto
+    # 1. click on the username (top right corner)
+    # this opens the hidden menu
     user_dropdown = wait.until(EC.element_to_be_clickable((By.CLASS_NAME, "oxd-userdropdown-name")))
     user_dropdown.click()
 
-    # 2. Esperar a que la opción 'Logout' sea visible y hacer clic
-    # Usamos LINK_TEXT porque es una etiqueta <a> con el texto exacto
+    # 2. wait for the 'logout' option to become visible and click it.
+    # we use LINK_TEXT because it's an <a> tag with the exact text.
     logout_link = wait.until(EC.visibility_of_element_located((By.LINK_TEXT, "Logout")))
     logout_link.click()
 
-    # 3. Validar que volvimos a la página de Login
-    # Una forma segura es verificar que el campo de username esté presente de nuevo
+    # 3. verify that we've returned to the login page
+    # a reliable way to do this is to check that the username field is present again.
     wait.until(EC.presence_of_element_located((By.NAME, "username")))
     
     current_url = driver.current_url
     assert "login" in current_url
     print(f"Logout exitoso en {request.node.name}. URL actual: {current_url}")
 
-    # Tomar captura de pantalla de la página de login post-logout
+    # take a screenshot of the post-logout login page
     import os
     if not os.path.exists("screenshots"): os.makedirs("screenshots")
     driver.save_screenshot(f"screenshots/logout_success_{request.node.name}.png")

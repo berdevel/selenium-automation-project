@@ -39,31 +39,31 @@ def driver(request):
 def test_directory_search_by_job_title(driver, request):
     wait = WebDriverWait(driver, 10)
 
-    # 1. Navegar al menú 'Directory'
-    # Buscamos el enlace que contiene el texto 'Directory' en el menú lateral
+    # 1. navigate to the 'directory' menu
+    # look for the link containing the text 'directory' in the sidebar menu
     directory_menu = wait.until(EC.element_to_be_clickable((By.XPATH, "//span[text()='Directory']")))
     directory_menu.click()
 
-    # 2. Interactuar con el filtro de 'Job Title'
-    # En OrangeHRM, los dropdowns son personalizados, no son elementos <select> estándar
+    # 2. interacting with the 'job title' filter
+    # in orangehrm, dropdowns are custom, not standard <select> elements
     job_title_dropdown = wait.until(EC.element_to_be_clickable((By.XPATH, "(//div[@class='oxd-select-text-input'])[1]")))
     job_title_dropdown.click()
 
-    # Seleccionamos una opción (ej: 'Account Assistant')
+    # we select an option (e.g., 'account assistant')
     option = wait.until(EC.element_to_be_clickable((By.XPATH, "//div[@role='listbox']//span[text()='Account Assistant']")))
     option.click()
 
-    # 3. Clic en el botón 'Search'
+    # 3. click on the 'search' button
     driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
 
-    # 4. Validar que se muestran resultados o un mensaje de carga
-    # Esperamos a que aparezca el contenedor de las tarjetas de empleados
+    # 4. validate that results or a loading message are displayed
+    # we wait for the employee card container to appear
     wait.until(EC.visibility_of_element_located((By.CLASS_NAME, "orangehrm-directory-card")))
     
     results = driver.find_elements(By.CLASS_NAME, "orangehrm-directory-card")
     print(f"Empleados encontrados con ese cargo: {len(results)}")
     
-    # Captura de pantalla del resultado
+    # screenshot of the result
     if not os.path.exists("screenshots"): os.makedirs("screenshots")
     driver.save_screenshot(f"screenshots/directory_search_{request.node.name}.png")
 
