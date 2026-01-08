@@ -5,6 +5,8 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import allure
+from allure_commons.types import AttachmentType
 
 @pytest.fixture(params=["chrome", "firefox", "edge"])
 def driver(request):
@@ -66,5 +68,9 @@ def test_directory_search_by_job_title(driver, request):
     # screenshot of the result
     if not os.path.exists("screenshots"): os.makedirs("screenshots")
     driver.save_screenshot(f"screenshots/directory_search_{request.node.name}.png")
+
+    allure.attach(driver.get_screenshot_as_png(), 
+                  name="Evidence_Screenshot", 
+                  attachment_type=AttachmentType.PNG)
 
     assert len(results) > 0, "No se encontraron empleados para el cargo seleccionado"

@@ -5,6 +5,8 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import allure
+from allure_commons.types import AttachmentType
 
 @pytest.fixture(params=["chrome", "firefox", "edge"])
 def driver(request):
@@ -60,6 +62,10 @@ def test_login_to_orangehrm(driver, request):
     file_path = f"screenshots/{test_name}_{timestamp}.png"
     driver.save_screenshot(file_path)
     print(f"\nCaptura guardada en: {file_path}")
+
+    allure.attach(driver.get_screenshot_as_png(), 
+                  name="Evidence_Screenshot", 
+                  attachment_type=AttachmentType.PNG)
 
     # execute finally asserts
     assert driver.current_url == expected_url

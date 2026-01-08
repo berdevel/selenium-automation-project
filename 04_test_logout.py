@@ -5,6 +5,8 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import allure
+from allure_commons.types import AttachmentType
 
 @pytest.fixture(params=["chrome", "firefox", "edge"])
 def driver(request):
@@ -61,3 +63,7 @@ def test_logout_orangehrm(driver, request):
     import os
     if not os.path.exists("screenshots"): os.makedirs("screenshots")
     driver.save_screenshot(f"screenshots/logout_success_{request.node.name}.png")
+
+    allure.attach(driver.get_screenshot_as_png(), 
+                  name="Evidence_Screenshot", 
+                  attachment_type=AttachmentType.PNG)

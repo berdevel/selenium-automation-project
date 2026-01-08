@@ -5,6 +5,8 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import allure
+from allure_commons.types import AttachmentType
 
 @pytest.fixture(params=["chrome", "firefox", "edge"])
 def driver(request):
@@ -57,6 +59,10 @@ def test_dashboard_widgets_visibility(driver, request):
     driver.save_screenshot(file_path)
     print(f"\nCaptura guardada en: {file_path}")
 
+    allure.attach(driver.get_screenshot_as_png(), 
+                  name="Evidence_Screenshot", 
+                  attachment_type=AttachmentType.PNG)
+
 def test_user_profile_dropdown(driver, request):
     wait = WebDriverWait(driver, 10)
     
@@ -82,6 +88,10 @@ def test_user_profile_dropdown(driver, request):
     driver.save_screenshot(file_path)
     print(f"\nCaptura guardada en: {file_path}")
 
+    allure.attach(driver.get_screenshot_as_png(), 
+                  name="Evidence_Screenshot", 
+                  attachment_type=AttachmentType.PNG)
+
 def test_sidebar_menu_count(driver, request):
     wait = WebDriverWait(driver, 10)
     wait.until(EC.visibility_of_element_located((By.CLASS_NAME, "oxd-main-menu")))
@@ -105,3 +115,7 @@ def test_sidebar_menu_count(driver, request):
     file_path = f"screenshots/{test_name}_{timestamp}.png"
     driver.save_screenshot(file_path)
     print(f"\nCaptura guardada en: {file_path}")
+
+    allure.attach(driver.get_screenshot_as_png(), 
+                  name="Evidence_Screenshot", 
+                  attachment_type=AttachmentType.PNG)
